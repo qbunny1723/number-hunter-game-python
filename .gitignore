@@ -10,6 +10,7 @@ venv/
 server.err.log
 server.out.log
 layout_check.png
+unused_files/
 
 # Class PDFs and generated previews
 *.pdf
