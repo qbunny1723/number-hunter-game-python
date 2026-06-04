@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>數字獵人 | 單機多人版</title>
+  <link rel="stylesheet" href="style.css?v=reference-layout-37">
+</head>
+<body>
+  <main class="game-stage">
+    <header class="title-area">
+      <img class="title-art" src="標題.png" alt="數字獵人">
+      <div id="modeRibbon" class="mode-ribbon">單機多人設定</div>
+    </header>
+
+    <section id="entrance" class="setup-view" aria-label="單機多人設定">
+      <article class="setup-card player-setup">
+        <div class="card-ribbon teal">玩家設定</div>
+        <form id="setupForm" class="stack-form local-setup-form">
+          <label for="playerCount">遊玩人數</label>
+          <select id="playerCountSelect" class="pretty-select">
+            <option value="2">2 人</option>
+            <option value="3">3 人</option>
+            <option value="4" selected>4 人</option>
+          </select>
+
+          <div id="playerInputs" class="player-inputs">
+            <label>玩家 1 <input id="playerName1" maxlength="3" value="小獵人" required></label>
+            <label>玩家 2 <input id="playerName2" maxlength="3" value="小可愛" required></label>
+            <label>玩家 3 <input id="playerName3" maxlength="3" value="小灰貓"></label>
+            <label>玩家 4 <input id="playerName4" maxlength="3" value="小星星"></label>
+          </div>
+
+          <button id="drawRolesBtn" class="role-draw-button" type="button">抽角色卡</button>
+
+          <button class="big-action pink" type="submit">
+            <span class="button-icon">▶</span>
+            開始遊戲
+          </button>
+        </form>
+      </article>
+
+      <article class="setup-card rules-card">
+        <div class="card-ribbon pink">遊戲規則</div>
+        <ul class="rules-list">
+          <li><span>1-100</span><strong>神秘數字範圍：1-100</strong></li>
+          <li><span>2-4</span><strong>同一台電腦輪流遊玩：2-4 人</strong></li>
+          <li><span>x2</span><strong>每位玩家提示次數：2 次</strong></li>
+          <li><span>輪</span><strong>依照玩家順序輪流猜測</strong></li>
+          <li><span>冠</span><strong>最先猜中神秘數字者獲勝</strong></li>
+        </ul>
+      </article>
+
+      <aside class="setup-card room-info">
+        <div class="card-ribbon teal">本機模式</div>
+        <div class="room-code-preview local-preview">
+          <span>不用房間代碼</span>
+          <strong>LOCAL</strong>
+        </div>
+        <ol id="setupPreviewPlayers" class="preview-players">
+          <li><b>1</b><span>小獵人</span><em>先</em></li>
+          <li><b>2</b><span>小可愛</span><em></em></li>
+          <li><b>3</b><span>小灰貓</span><em></em></li>
+          <li><b>4</b><span>小星星</span><em></em></li>
+        </ol>
+        <div class="hint-preview">
+          <div>
+            <strong>範圍提示</strong>
+            <p>可得知答案在 1-50 或 51-100</p>
+          </div>
+          <div>
+            <strong>接近提示</strong>
+            <p>可測試某數與答案是否在 10 以內</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="room" class="play-view hidden" aria-label="遊戲進行中">
+      <section class="top-status">
+        <div class="range-status">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <span>搜尋區間</span>
+          <strong id="rangeText">1~100</strong>
+        </div>
+        <p class="state-line">目前狀態：<span id="statusText">遊戲進行中</span></p>
+        <p class="player-line">玩家：<span id="connectionBadge">小獵人</span></p>
+        <p id="playerCount" class="players-chip">4 人</p>
+        <p class="room-code-box">房間代碼 <strong id="roomCode">LOCAL</strong></p>
+      </section>
+
+      <div class="board-layout">
+        <section class="number-panel">
+          <div class="panel-ribbon pink search-ribbon">目前鎖定區間</div>
+          <div id="numberGrid" class="number-grid" aria-label="數字棋盤"></div>
+          <aside class="map-legend">
+            <h3>地圖圖例</h3>
+            <p><i class="legend-small"></i>太小</p>
+            <p><i class="legend-large"></i>太大</p>
+            <p><i class="legend-near"></i>接近 ±10</p>
+            <p><i class="legend-latest"></i>最新猜測</p>
+            <strong>目前線索</strong>
+            <span id="legendRange">答案落在 1~100</span>
+          </aside>
+        </section>
+
+        <section class="middle-column">
+          <form id="guessForm" class="guess-card">
+            <div class="panel-ribbon pink">輸入你的猜測</div>
+            <div class="guess-row">
+              <input id="guessInput" type="number" min="1" max="100" inputmode="numeric" required>
+              <button class="guess-submit pink" type="submit">猜測</button>
+            </div>
+          </form>
+
+          <section class="skill-card">
+            <button id="halfHintBtn" class="hint-button range" type="button">
+              <span class="hint-copy">
+                <span class="hint-title-line"><span class="hint-emoji" aria-hidden="true">🔍</span>
+                <strong>範圍掃描</strong>
+                </span>
+                <small>告訴你答案在 1~50 或 51~100</small>
+              </span>
+            </button>
+            <form id="nearHintForm" class="hint-button near">
+              <div class="hint-copy">
+                <span class="hint-title-line"><span class="hint-emoji" aria-hidden="true">🎯</span>
+                <strong>鄰近探測</strong>
+                </span>
+                <small>輸入一個數字，判斷是否在 ±10 內</small>
+              </div>
+              <input id="probeInput" type="number" min="1" max="100" inputmode="numeric" placeholder="70">
+              <button class="mini-button pink" type="submit">測試</button>
+            </form>
+            <p id="hintFeedback" class="hint-feedback">尚未使用提示</p>
+          </section>
+        </section>
+
+      </div>
+
+      <aside class="activity-column">
+        <section class="list-card ranking">
+          <div class="panel-ribbon pink">玩家排行</div>
+          <ol id="rankingList"></ol>
+        </section>
+        <section class="list-card feed">
+          <div class="panel-ribbon blue">事件簿</div>
+          <ol id="guessList"></ol>
+        </section>
+        <button id="leaveBtn" class="mini-button pale info-leave" type="button">回設定</button>
+      </aside>
+
+      <footer class="bottom-note">
+        <p id="message">每位玩家可使用 2 次提示，猜中數字立即獲勝。</p>
+        <button id="startBtn" class="start-button" type="button">重新開始</button>
+      </footer>
+    </section>
+  </main>
+  <script src="script.js"></script>
+  <script src="backend-status.js"></script>
+</body>
+</html>

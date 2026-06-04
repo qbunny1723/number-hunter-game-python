@@ -1,0 +1,27 @@
+# Python runtime/cache
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Logs and local-only output
+*.log
+server.err.log
+server.out.log
+layout_check.png
+
+# Class PDFs and generated previews
+*.pdf
+preview.html
+preview_*.png
+number_hunter_game_screen.png
+
+# Draft/generated image references that are not used by index.html
+ChatGPT Image *.png
+下載*.png
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
