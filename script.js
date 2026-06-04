@@ -197,6 +197,15 @@ function renderGrid() {
   });
 }
 
+function selectGuessFromMap(event) {
+  if (game.status !== "playing") return;
+  const cell = event.target.closest(".number-cell");
+  if (!cell || !els.numberGrid.contains(cell)) return;
+  els.guessInput.value = cell.dataset.value;
+  renderGrid();
+  els.guessInput.focus({ preventScroll: true });
+}
+
 function addCell(item, text, strong = false) {
   const cell = document.createElement(strong ? "strong" : "span");
   cell.textContent = text;
@@ -397,6 +406,7 @@ els.guessForm.addEventListener("submit", (event) => {
 });
 
 els.guessInput.addEventListener("input", renderGrid);
+els.numberGrid.addEventListener("click", selectGuessFromMap);
 els.halfHintBtn.addEventListener("click", useHalfHint);
 
 els.nearHintForm.addEventListener("submit", (event) => {

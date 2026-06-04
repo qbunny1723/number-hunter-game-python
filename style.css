@@ -1130,62 +1130,193 @@ input:focus {
   }
 
   .game-stage {
-    width: max(1180px, 100vw);
+    width: 100vw;
     min-height: 100vh;
-    padding: 8px 18px 14px;
+    padding: 6px 10px 12px;
+    overflow-x: hidden;
   }
 
   .title-area {
-    height: 86px;
-    max-height: 86px;
+    height: 64px;
+    max-height: 64px;
   }
 
   .title-art {
-    width: 280px;
+    width: 220px;
     margin-top: 0;
   }
 
   .mode-ribbon {
-    min-width: 320px;
-    min-height: 36px;
+    min-width: 260px;
+    min-height: 32px;
     margin-top: -4px;
-    font-size: 1.25rem;
+    font-size: 1.05rem;
   }
 
   .setup-view {
-    grid-template-columns: minmax(260px, .9fr) minmax(320px, 1fr) minmax(300px, .95fr);
+    grid-template-columns: repeat(3, minmax(240px, 1fr));
+    gap: 10px;
   }
 
   .play-view {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    grid-template-rows: 52px minmax(560px, 1fr) 50px;
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
     grid-template-areas:
-      "status info"
-      "main info"
-      "note info";
-    gap: 12px;
+      "status"
+      "main"
+      "info"
+      "note";
+    gap: 10px;
   }
 
   .top-status {
     grid-area: status;
     grid-template-columns: max-content auto auto auto auto;
-    min-height: 52px;
-    padding: 6px 16px;
+    min-height: 44px;
+    padding: 4px 12px;
+    gap: 8px;
+    overflow-x: auto;
   }
 
   .board-layout {
     grid-area: main;
-    grid-template-columns: minmax(520px, 1fr) minmax(260px, 310px);
-    min-height: 560px;
+    grid-template-columns: minmax(0, 1fr) minmax(230px, 290px);
+    min-height: 0;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .number-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 122px;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 8px;
+    padding: 34px 10px 10px;
+  }
+
+  .number-grid {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    gap: 3px;
+  }
+
+  .number-cell {
+    min-height: 26px;
+    aspect-ratio: 1.35 / 1;
+    font-size: .78rem;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(239, 113, 129, .18);
+  }
+
+  .map-legend {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    min-height: 100%;
+    padding: 10px;
+    border: 2px solid #cbdcc4;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .82);
+    color: #42513f;
+  }
+
+  .map-legend h3 {
+    margin: 0 0 8px;
+    font-size: .95rem;
+  }
+
+  .map-legend p {
+    margin: 7px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .8rem;
+    font-weight: 850;
+  }
+
+  .map-legend i {
+    width: 18px;
+    height: 15px;
+    border: 2px solid #cbdcc4;
+    border-radius: 5px;
+    display: inline-block;
+  }
+
+  .legend-small { background: #dff2ff; }
+  .legend-large { background: #ffe9ef; }
+  .legend-near { background: #fff4d8; }
+  .legend-latest { background: #ffc76e; }
+
+  .map-legend strong {
+    display: block;
+    margin-top: 14px;
+    font-size: .82rem;
+  }
+
+  .map-legend span {
+    display: block;
+    margin-top: 6px;
+    color: #c47a25;
+    font-size: .8rem;
+    font-weight: 950;
+  }
+
+  .middle-column {
+    gap: 10px;
+  }
+
+  .guess-card,
+  .skill-card {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   .activity-column {
     grid-area: info;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .activity-column::before,
+  .info-leave {
+    display: none;
+  }
+
+  .list-card.ranking,
+  .list-card.feed {
+    min-height: 210px;
+    padding: 16px;
+  }
+
+  .list-card.ranking ol,
+  #rankingList {
+    display: grid;
+    gap: 8px;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .list-card.ranking li {
+    min-height: 62px;
+    padding: 8px 10px;
+    grid-template-columns: 64px 44px minmax(0, 1fr);
+    border-radius: 18px;
+  }
+
+  #guessList {
+    max-height: 170px;
+    overflow-y: auto;
   }
 
   .bottom-note {
     grid-area: note;
+    min-height: 44px;
+    padding: 5px 12px;
   }
 }
 
