@@ -44,6 +44,10 @@ input:disabled {
 
 .hidden { display: none !important; }
 
+.rotate-prompt {
+  display: none;
+}
+
 .game-stage {
   width: min(1672px, 100vw);
   min-height: 100vh;
@@ -1066,6 +1070,123 @@ input:focus {
     flex-wrap: wrap;
   }
   .big-action { min-height: 58px; }
+}
+
+@media (max-width: 900px) and (orientation: portrait) {
+  body {
+    min-height: 100svh;
+    overflow: hidden;
+  }
+
+  .game-stage {
+    display: none;
+  }
+
+  .rotate-prompt {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: #f8c7cf url("background.png") center / cover no-repeat;
+  }
+
+  .rotate-prompt-inner {
+    width: min(420px, 88vw);
+    display: grid;
+    justify-items: center;
+    gap: 14px;
+    padding: 28px 22px;
+    border: 3px solid #f3a2b7;
+    border-radius: 24px;
+    background: rgba(255, 253, 247, .94);
+    color: var(--ink);
+    text-align: center;
+    box-shadow: 0 18px 34px rgba(120, 77, 66, .18);
+  }
+
+  .rotate-prompt-inner img {
+    width: min(280px, 72vw);
+    height: auto;
+  }
+
+  .rotate-prompt-inner strong {
+    color: #cf5266;
+    font-size: 1.7rem;
+    font-weight: 950;
+  }
+
+  .rotate-prompt-inner span {
+    color: #6d564f;
+    font-size: 1rem;
+    font-weight: 850;
+  }
+}
+
+@media (max-width: 1180px) and (orientation: landscape) {
+  body {
+    overflow: auto;
+  }
+
+  .game-stage {
+    width: max(1180px, 100vw);
+    min-height: 100vh;
+    padding: 8px 18px 14px;
+  }
+
+  .title-area {
+    height: 86px;
+    max-height: 86px;
+  }
+
+  .title-art {
+    width: 280px;
+    margin-top: 0;
+  }
+
+  .mode-ribbon {
+    min-width: 320px;
+    min-height: 36px;
+    margin-top: -4px;
+    font-size: 1.25rem;
+  }
+
+  .setup-view {
+    grid-template-columns: minmax(260px, .9fr) minmax(320px, 1fr) minmax(300px, .95fr);
+  }
+
+  .play-view {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-rows: 52px minmax(560px, 1fr) 50px;
+    grid-template-areas:
+      "status info"
+      "main info"
+      "note info";
+    gap: 12px;
+  }
+
+  .top-status {
+    grid-area: status;
+    grid-template-columns: max-content auto auto auto auto;
+    min-height: 52px;
+    padding: 6px 16px;
+  }
+
+  .board-layout {
+    grid-area: main;
+    grid-template-columns: minmax(520px, 1fr) minmax(260px, 310px);
+    min-height: 560px;
+  }
+
+  .activity-column {
+    grid-area: info;
+  }
+
+  .bottom-note {
+    grid-area: note;
+  }
 }
 
 /* Reference-style play layout: large map board + right info panel. */
